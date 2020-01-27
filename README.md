@@ -3,17 +3,19 @@
 The autocomplete supports cutsom text field via scoped slot
 
 ```html
-          <gmap-autocomplete class="introInput" >
-                    <template v-slot:input="slotProps">
-                        <v-text-field outlined 
-                                      prepend-inner-icon="place" 
-                                      placeholder="Location Of Event" 
-                                      ref="input" 
-                                      v-on:listeners="slotProps.listeners" 
-                                      v-on:attrs="slotProps.attrs">
-                        </v-text-field>
-                    </template>
-        </gmap-autocomplete>
+<gmap-autocomplete class="introInput">
+  <template v-slot:input="slotProps">
+    <v-text-field
+      outlined
+      prepend-inner-icon="place"
+      placeholder="Location Of Event"
+      ref="input"
+      v-on:listeners="slotProps.listeners"
+      v-on:attrs="slotProps.attrs"
+    >
+    </v-text-field>
+  </template>
+</gmap-autocomplete>
 ```
 
 The ref on the element must be called input, if the element is a vue component then it must have a child ref called input (like in vuetify text-field) or speciy a custom name via childRefName property (only works one level deep into a component).
@@ -21,7 +23,6 @@ The ref on the element must be called input, if the element is a vue component t
 The v-on:listeners is rquired, v-on:attrs may or may not be required depending on your implementation.
 
 This requires vue 2.6 or higher for the new slot support.
-
 
 # CONTRIBUTORS NEEDED!
 
@@ -53,7 +54,7 @@ This is the Vue 2.x port of vue-google-maps!
 ### With npm (Recommended)
 
 ```
-npm install vue2-google-maps
+npm install @gravitano/vue2-google-maps
 ```
 
 ### Manually
@@ -77,7 +78,7 @@ If you are using Webpack and Vue file components, just add the following to your
 
 ```vue
 <GmapMap
-  :center="{lat:10, lng:10}"
+  :center="{ lat: 10, lng: 10 }"
   :zoom="7"
   map-type-id="terrain"
   style="width: 500px; height: 300px"
@@ -96,13 +97,13 @@ If you are using Webpack and Vue file components, just add the following to your
 In your `main.js` or inside a Nuxt plugin:
 
 ```js
-import Vue from 'vue'
-import * as VueGoogleMaps from 'vue2-google-maps'
+import Vue from "vue";
+import * as VueGoogleMaps from "@gravitano/vue2-google-maps";
 
 Vue.use(VueGoogleMaps, {
   load: {
-    key: 'YOUR_API_TOKEN',
-    libraries: 'places', // This is required if you use the Autocomplete plugin
+    key: "YOUR_API_TOKEN",
+    libraries: "places" // This is required if you use the Autocomplete plugin
     // OR: libraries: 'places,drawing'
     // OR: libraries: 'places,drawing,visualization'
     // (as you require)
@@ -123,10 +124,11 @@ Vue.use(VueGoogleMaps, {
   //// then set installComponents to 'false'.
   //// If you want to automatically install all the components this property must be set to 'true':
   installComponents: true
-})
+});
 ```
 
 If you need to gain access to the `Map` instance (e.g. to call `panToBounds`, `panTo`):
+
 ```vue
 <template>
 <GmapMap ref="mapRef" ...>
@@ -147,27 +149,31 @@ export default {
 ```
 
 If you need to gain access to the `google` object:
+
 ```vue
 <template>
-  <GmapMarker ref="myMarker"
-    :position="google && new google.maps.LatLng(1.38, 103.8)" />
+  <GmapMarker
+    ref="myMarker"
+    :position="google && new google.maps.LatLng(1.38, 103.8)"
+  />
 </template>
 <script>
-import {gmapApi} from 'vue2-google-maps'
+import { gmapApi } from "@gravitano/vue2-google-maps";
 
 export default {
   computed: {
     google: gmapApi
   }
-}
+};
 </script>
 ```
 
 Control the options of the map with the options property:
 
 Example of [MapOptions](https://developers.google.com/maps/documentation/javascript/reference/map#MapOptions):
- ```vue
- <GmapMap
+
+```vue
+<GmapMap
   :options="{
     zoomControl: true,
     mapTypeControl: false,
@@ -184,13 +190,9 @@ Example of [MapOptions](https://developers.google.com/maps/documentation/javascr
 Add region and language localization:
 
 Example for [Localization](https://developers.google.com/maps/documentation/javascript/localization):
+
 ```vue
-Vue.use(VueGoogleMaps, {
-  load: {
-    region: 'VI',
-    language: 'vi',
-  },
-})
+Vue.use(VueGoogleMaps, { load: { region: 'VI', language: 'vi', }, })
 ```
 
 ### Nuxt.js config
@@ -198,13 +200,13 @@ Vue.use(VueGoogleMaps, {
 For Nuxt.js projects, please import VueGoogleMaps in the following manner:
 
 ```js
-import * as VueGoogleMaps from '~/node_modules/vue2-google-maps'
+import * as VueGoogleMaps from "~/node_modules/@gravitano/vue2-google-maps";
 ```
 
 Add the following to your `nuxt.config.js`'s `build.extend()`:
 
 ```js
-transpile: [/^vue2-google-maps($|\/)/]
+transpile: [/^vue2-google-maps($|\/)/];
 ```
 
 ### Officially supported components:
@@ -217,17 +219,19 @@ The list of officially support components are:
 - Marker
 - InfoWindow
 - Autocomplete
-- Cluster* (via `marker-clusterer-plus`)
+- Cluster\* (via `marker-clusterer-plus`)
 
 You can find examples of this [on the website](http://xkjyeah.github.io/vue-google-maps/).
 Auto-generated API documentation for these components are [here](http://xkjyeah.github.io/vue-google-maps/autoapi.html).
 
 For `Cluster`, you **must** import the class specifically, e.g.
-```js
-import GmapCluster from 'vue2-google-maps/dist/components/cluster' // replace src with dist if you have Babel issues
 
-Vue.component('GmapCluster', GmapCluster)
+```js
+import GmapCluster from "@gravitano/vue2-google-maps/dist/components/cluster"; // replace src with dist if you have Babel issues
+
+Vue.component("GmapCluster", GmapCluster);
 ```
+
 Inconvenient, but this means all other users don't have to bundle the marker clusterer package
 in their source code.
 
@@ -237,17 +241,18 @@ It should be relatively easy to add your own components (e.g. Heatmap, GroundOve
 [source code for `MapElementFactory`](https://github.com/xkjyeah/vue-google-maps/blob/vue2/src/components/mapElementFactory.js).
 
 Example for [DirectionsRenderer](https://developers.google.com/maps/documentation/javascript/reference/3/#DirectionsRenderer):
+
 ```js
 // DirectionsRenderer.js
-import {MapElementFactory} from 'vue2-google-maps'
+import { MapElementFactory } from "@gravitano/vue2-google-maps";
 
 export default MapElementFactory({
-  name: 'directionsRenderer',
+  name: "directionsRenderer",
   ctr: () => google.maps.DirectionsRenderer,
   //// The following is optional, but necessary if the constructor takes multiple arguments
   //// e.g. for GroundOverlay
   // ctrArgs: (options, otherProps) => [options],
-  events: ['directions_changed'],
+  events: ["directions_changed"],
 
   // Mapped Props will automatically set up
   //   this.$watch('propertyName', (v) => instance.setPropertyName(v))
@@ -262,8 +267,8 @@ export default MapElementFactory({
   mappedProps: {
     routeIndex: { type: Number },
     options: { type: Object },
-    panel: { },
-    directions: { type: Object },
+    panel: {},
+    directions: { type: Object }
     //// If you have a property that comes with a `_changed` event,
     //// you can specify `twoWay` to automatically bind the event, e.g. Map's `zoom`:
     // zoom: {type: Number, twoWay: true}
@@ -273,13 +278,14 @@ export default MapElementFactory({
   // Actions you want to perform before creating the object instance using the
   // provided constructor (for example, you can modify the `options` object).
   // If you return a promise, execution will suspend until the promise resolves
-  beforeCreate (options) {},
+  beforeCreate(options) {},
   // Actions to perform after creating the object instance.
-  afterCreate (directionsRendererInstance) {},
-})
+  afterCreate(directionsRendererInstance) {}
+});
 ```
 
 Thereafter, it's easy to use the newly-minted component!
+
 ```vue
 <template>
   <GmapMap :zoom="..." :center="...">
@@ -287,11 +293,11 @@ Thereafter, it's easy to use the newly-minted component!
   </GmapMap>
 </template>
 <script>
-import DirectionsRenderer from './DirectionsRenderer.js'
+import DirectionsRenderer from "./DirectionsRenderer.js";
 
 export default {
-  components: {DirectionsRenderer}
-}
+  components: { DirectionsRenderer }
+};
 </script>
 ```
 
