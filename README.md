@@ -195,7 +195,7 @@ The list of officially support components are:
 - Marker
 - InfoWindow
 - Autocomplete
-- Cluster* (via `marker-clusterer-plus`)
+- Cluster\* (via `marker-clusterer-plus`)
 
 You can find examples of this [on the website](http://xkjyeah.github.io/vue-google-maps/).
 Auto-generated API documentation for these components are [here](http://xkjyeah.github.io/vue-google-maps/autoapi.html).
@@ -212,20 +212,21 @@ Inconvenient, but this means all other users don't have to bundle the marker clu
 in their source code.
 
 ### Autocomplete component
+
 The autocomplete supports cutsom text field via scoped slot
 
-```html
-          <gmap-autocomplete class="introInput" >
-                    <template v-slot:input="slotProps">
-                        <v-text-field outlined
-                                      prepend-inner-icon="place"
-                                      placeholder="Location Of Event"
-                                      ref="input"
-                                      v-on:listeners="slotProps.listeners"
-                                      v-on:attrs="slotProps.attrs">
-                        </v-text-field>
-                    </template>
-        </gmap-autocomplete>
+```vue
+<gmap-autocomplete class="introInput">
+    <template v-slot:input="slotProps">
+        <v-text-field outlined
+            prepend-inner-icon="place"
+            placeholder="Location Of Event"
+            ref="input"
+            v-on:listeners="slotProps.listeners"
+            v-on:attrs="slotProps.attrs">
+        </v-text-field>
+    </template>
+</gmap-autocomplete>
 ```
 
 The ref on the element must be called input, if the element is a vue component then it must have a child ref called input (like in vuetify text-field) or speciy a custom name via childRefName property (only works one level deep into a component).
